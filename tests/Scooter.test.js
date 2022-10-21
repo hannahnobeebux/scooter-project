@@ -9,6 +9,22 @@ const User = require('../src/User')
 //   })
 // })
 
+//Property tests 
+describe("scooter properties", () => {
+  beforeEach(() => {
+    scooter = new Scooter("Brooklyn", "Hannah");
+  });
+
+  test("checks it is an object", () => {
+    // Can't do this as the serial number and charge are random numbers
+    //expect(scooter).toEqual({station: "Brooklyn", user: "Hannah"})
+
+    // Instead, will use object notation to retrieve values from key-value pairs 
+    expect(scooter.station).toBe("Brooklyn")
+    expect(scooter.user).toBe("Hannah")
+  })
+})
+
 //Method tests
 describe('scooter methods', () => {
   // tests here!
@@ -16,7 +32,7 @@ describe('scooter methods', () => {
     scooter = new Scooter("Brooklyn", "Hannah");
   });
 
-  //rent method
+  //rent method - FIX THIS TO BE INCLUSIVE OF ALL RANDOM NUMBERS !
   test('renting a scooter', () => {
     //scooter.charge = 19
     scooter.rent()
@@ -29,6 +45,10 @@ describe('scooter methods', () => {
     scooter.dock("Manhattan")
     expect (scooter.station).toBe("Manhattan") 
     expect (scooter.docked).toBe(true)
+    
+    //Testing for an error by not passing in a docking location
+    //expect(scooter).toThrow("Docking station required!")
+  
   })
 
   //requestRepair method

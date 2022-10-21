@@ -3,8 +3,8 @@ class Scooter{
   constructor(station, user) {
     this.station = station
     this.user = user 
-    this.serial = Math.floor(Math.random() * (1000 - 1) + 1)
-    this.charge = Math.floor(Math.random() * (100 - 1) + 1)
+    this.serial = Math.floor(Math.random() * (1000) + 1)
+    this.charge = Math.floor(Math.random() * (100) + 1)
     this.isBroken = false 
     this.docked = true
   }
@@ -14,7 +14,7 @@ class Scooter{
         this.docked = false 
         console.log("Enjoy the ride.")
         return "Enjoy the ride!"
-      } else if (charge <= 20){
+      } else if (this.charge <= 20){
         throw("Scooter is low on battery, please charge.")
       } else {
         throw("Scooter is broken, please send a repair request.")
@@ -26,7 +26,7 @@ class Scooter{
         this.station = newStation 
       } else {
         throw("Docking station required!")
-        return "Docking station required!"
+        // return "Docking station required!"
       }
       this.docked = true
       this.user = ""
