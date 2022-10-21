@@ -1,0 +1,81 @@
+%%This diagram should show the interactions between:
+%%user Actor
+%%Scooter Actor
+%%classes in the system
+
+sequenceDiagram 
+
+    actor User 
+   
+    %%SECTION 1 - USER INTERACTING WITH SCOOTER APP 
+    User ->> ScooterApp: Login 
+
+    %%LOGGING INTO SYSTEM
+    activate ScooterApp
+    alt if login details do not exist
+        ScooterApp -->> User: Must register User first (verify user is over 17 years old)
+        User ->> ScooterApp: Register User 
+        ScooterApp -->> User: Login Successful
+    else else allow user to log in
+        ScooterApp -->> User: Login Successful
+    end 
+    deactivate ScooterApp
+
+    %%ADDING A SCOOTER
+    activate ScooterApp 
+    opt adding a scooter 
+        User ->> ScooterApp: Providing location + adding a scooter 
+        ScooterApp -->> User: Adding a scooter to user 
+    end 
+    deactivate ScooterApp
+
+    %%REMOVING A SCOOTER 
+    activate ScooterApp 
+    opt removing a scooter 
+        User ->> ScooterApp: Specifying scooter to remove 
+        ScooterApp ->> Scooter: Retrieving serial number 
+        ScooterApp -->> User: Scooter successfully removed 
+    end 
+
+ 
+    %%SECTION 2 - SCOOTER APP FULFILLING USER REQUEST 
+    participant Scooter 
+
+    activate Scooter 
+    opt renting a scooter
+        ScooterApp ->> Scooter: Rent a scooter 
+        Scooter -->> ScooterApp: Scooter (serialNumber) has been rented 
+    end 
+    deactivate Scooter
+
+    activate Scooter 
+    opt docking a scooter 
+        Scooter ->> ScooterApp: Docking Scooter now 
+        ScooterApp -->> User: Successfully docked 
+    end 
+    deactivate Scooter
+
+    %%Using -x or --x means "async" 
+
+    activate Scooter 
+    opt recharging a scooter 
+        ScooterApp -x User: Charge is < 20%
+        ScooterApp --x Scooter: Charging to 100%
+        ScooterApp --x User: Charged 
+    end 
+    deactivate Scooter 
+
+    activate Scooter 
+    opt requesting a repair for scooter 
+        User -x ScooterApp: Request a repair 
+        ScooterApp -x Scooter: Repairing 
+        Scooter --x User: Repaired 
+    end 
+    deactivate Scooter 
+
+
+
+
+    
+
+

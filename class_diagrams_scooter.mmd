@@ -1,0 +1,52 @@
+%%This diagram should show the systems:
+
+%%classes, as well as each class (1) attributes and (2) methods
+
+%%inter-relationships between classes
+
+classDiagram 
+
+%%ScooterApp "1" *--  User
+%%User "1" --* "1" Scooter
+
+User *-- "1" ScooterApp 
+ScooterApp <|--* "1" Scooter 
+
+
+    class Scooter {
+    constructor(station, user)
+        +string station
+        #string user 
+        +number serial
+        #number charge 
+        #bool isBroken
+        #bool docked
+
+        +rent()
+        +dock(station)
+        +recharge()
+        +requestRepair()
+    }
+
+    class User {
+    constructor(username, password, age)
+        #string username
+        -string password
+        #number age 
+    }
+
+%%static properties are underlined 
+%%each time a ScooterApp object is created, automatically added to scooterSessions array
+    class ScooterApp {
+        +object stations 
+        #object registeredUsers 
+        #static array scooterSessions 
+
+        +register(user)
+        #logIn(username, password)
+        #addScooter(location, scooter)
+        #removeScooter(scooterToRemove)
+    }
+
+
+
